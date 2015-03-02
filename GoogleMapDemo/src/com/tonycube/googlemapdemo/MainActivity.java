@@ -44,6 +44,8 @@ public class MainActivity extends Activity implements LocationListener {
 	private WebView webView;
 	private EditText LatText, LogText;
 	private Button submit;
+	private Button connect;
+	private Button disconnect;
 	private boolean webviewReady = false;
 	private Location mostRecentLocation = null;
 	//
@@ -107,9 +109,9 @@ public class MainActivity extends Activity implements LocationListener {
 		tabHost.addTab(spec3);
 		// 元件
 		// TextView
-		recvNum1 = (TextView) findViewById(R.id.textView5);//左
-		recvNum2 = (TextView) findViewById(R.id.textView4);//前
-		recvNum3 = (TextView) findViewById(R.id.textView6);//右
+		recvNum1 = (TextView) findViewById(R.id.textView5);
+		recvNum2 = (TextView) findViewById(R.id.textView4);
+		recvNum3 = (TextView) findViewById(R.id.textView6);
 
 		// 初始化藍芽
 		btAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -120,15 +122,30 @@ public class MainActivity extends Activity implements LocationListener {
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 		}
-		deviceAddr = "98:D3:31:B1:3A:56";
-		
-		// 開始連線
-		Thread t = new Thread(sppConnect);
-		t.start();
+
 		// G
 		LatText = (EditText) findViewById(R.id.LatText);
 		LogText = (EditText) findViewById(R.id.LogText);
 		submit = (Button) findViewById(R.id.submit);
+		// 開始連線
+		connect = (Button) findViewById(R.id.connect);
+		connect.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+				deviceAddr = "98:D3:31:B1:3A:56";
+				Thread t = new Thread(sppConnect);
+				t.start();
+			}
+		});
+		// 結束連線
+		disconnect = (Button) findViewById(R.id.disconnect);
+		disconnect.setOnClickListener(new Button.OnClickListener() {
+			public void onClick(View v) {
+
+				Disconnect();
+				ShowMsg("結束連線", true);
+
+			}
+		});
 		submit.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -302,35 +319,41 @@ public class MainActivity extends Activity implements LocationListener {
 						Show(Left_lengthtoStr, recvNum1);
 						Show(Front_lengthtoStr, recvNum2);
 						Show(Right_lengthtoStr, recvNum3);
-						
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
 
-						Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
-
-						String time = formatter.format(curDate);
-						
-						FileWriter fwL = new FileWriter("/sdcard/" + time + "-L.txt",true);
-						BufferedWriter bwL = new BufferedWriter(fwL); //將BufferedWeiter與FileWrite物件做連結
-						bwL.write(Left_lengthtoStr);
-						bwL.newLine();
-						bwL.close();
-						
-						FileWriter fwF = new FileWriter("/sdcard/" + time + "-F.txt",true);
-						BufferedWriter bwF = new BufferedWriter(fwF); //將BufferedWeiter與FileWrite物件做連結
-						bwF.write(Front_lengthtoStr);
-						bwF.newLine();
-						bwF.close();
-						
-						FileWriter fwR = new FileWriter("/sdcard/" + time + "-R.txt",true);
-						BufferedWriter bwR = new BufferedWriter(fwR); //將BufferedWeiter與FileWrite物件做連結
-						bwR.write(Front_lengthtoStr);
-						bwR.newLine();
-						bwR.close();
-						
 						j += 1;
 						if (j > 1024) {
 							j = 0;
 						}
+					}
+					if (Left_length > 0 && Front_length > 0 && Right_length > 0) {
+						SimpleDateFormat formatter = new SimpleDateFormat(
+								"yyyy-MM-dd-HH:mm:ss");
+						Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
+						String time = formatter.format(curDate);
+
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+						String date = sdf.format(new java.util.Date());
+
+						FileWriter fwL = new FileWriter("/sdcard/DCIM/" + date
+								+ "-L.txt", true);
+						BufferedWriter bwL = new BufferedWriter(fwL); // 將BufferedWeiter與FileWrite物件做連結
+						bwL.write(time + "---" + Left_lengthtoStr);
+						bwL.newLine();
+						bwL.close();
+
+						FileWriter fwF = new FileWriter("/sdcard/DCIM/" + date
+								+ "-F.txt", true);
+						BufferedWriter bwF = new BufferedWriter(fwF); // 將BufferedWeiter與FileWrite物件做連結
+						bwF.write(time + "---" + Front_lengthtoStr);
+						bwF.newLine();
+						bwF.close();
+
+						FileWriter fwR = new FileWriter("/sdcard/DCIM/" + date
+								+ "-R.txt", true);
+						BufferedWriter bwR = new BufferedWriter(fwR); // 將BufferedWeiter與FileWrite物件做連結
+						bwR.write(time + "---" + Right_lengthtoStr);
+						bwR.newLine();
+						bwR.close();
 					}
 					Arrays.fill(buffer, (byte) 0); // 清空buffer
 				}
