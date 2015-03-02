@@ -1,10 +1,14 @@
 package com.tonycube.googlemapdemo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.UUID;
 
 import android.app.Activity;
@@ -103,9 +107,9 @@ public class MainActivity extends Activity implements LocationListener {
 		tabHost.addTab(spec3);
 		// 元件
 		// TextView
-		recvNum1 = (TextView) findViewById(R.id.textView5);
-		recvNum2 = (TextView) findViewById(R.id.textView4);
-		recvNum3 = (TextView) findViewById(R.id.textView6);
+		recvNum1 = (TextView) findViewById(R.id.textView5);//左
+		recvNum2 = (TextView) findViewById(R.id.textView4);//前
+		recvNum3 = (TextView) findViewById(R.id.textView6);//右
 
 		// 初始化藍芽
 		btAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -298,6 +302,30 @@ public class MainActivity extends Activity implements LocationListener {
 						Show(Left_lengthtoStr, recvNum1);
 						Show(Front_lengthtoStr, recvNum2);
 						Show(Right_lengthtoStr, recvNum3);
+						
+						SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+
+						Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+
+						String time = formatter.format(curDate);
+						
+						FileWriter fwL = new FileWriter("/sdcard/" + time + "-L.txt",true);
+						BufferedWriter bwL = new BufferedWriter(fwL); //將BufferedWeiter與FileWrite物件做連結
+						bwL.write(Left_lengthtoStr);
+						bwL.newLine();
+						bwL.close();
+						
+						FileWriter fwF = new FileWriter("/sdcard/" + time + "-F.txt",true);
+						BufferedWriter bwF = new BufferedWriter(fwF); //將BufferedWeiter與FileWrite物件做連結
+						bwF.write(Front_lengthtoStr);
+						bwF.newLine();
+						bwF.close();
+						
+						FileWriter fwR = new FileWriter("/sdcard/" + time + "-R.txt",true);
+						BufferedWriter bwR = new BufferedWriter(fwR); //將BufferedWeiter與FileWrite物件做連結
+						bwR.write(Front_lengthtoStr);
+						bwR.newLine();
+						bwR.close();
 						
 						j += 1;
 						if (j > 1024) {
