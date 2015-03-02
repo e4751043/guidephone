@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TabHost android:layout_width="fill_parent"
+    android:layout_height="fill_parent" android:id="@+id/tabHost"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <TabWidget android:layout_width="fill_parent"
+        android:layout_height="wrap_content" android:id="@android:id/tabs" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </RelativeLayout>
+        
+    <FrameLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent" android:id="@android:id/tabcontent">
+        
+        <LinearLayout
+            android:id="@+id/tab1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="160px" >
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.09"
+                android:onClick="Start"
+                android:text="Start" />
+
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="30dp"
+                android:text="超音波偵測距離 (cm)-前:"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="30dp"
+                android:text=""
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="30dp"
+                android:text="超音波偵測距離 (cm)-左:"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="30dp"
+                android:text=""
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="30dp"
+                android:text="超音波偵測距離 (cm)-右:"
+                android:textSize="20sp" />
+            
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="30dp"
+                android:text=""
+                android:textSize="20sp" />
+            
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:id="@+id/tab2"
+            android:orientation="vertical" android:paddingTop="160px">
+       
+
+             <LinearLayout
+        android:id="@+id/RelativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="133dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true" >
+
+        <!--  <TextView 
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content" 
+            android:layout_centerVertical="true" 
+            android:text="緯度(Latitude)"/>-->
+        
+        <EditText
+            android:id="@+id/LogText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView1"
+            android:layout_weight="1"
+            android:clickable="false"
+            android:ems="10"
+            android:inputType="text"
+            android:text="120.580806" />
+
+        <!--  <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="經度(Longtitude)" />-->
+
+        <EditText
+            android:id="@+id/LatText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:inputType="text"
+            android:text="24.217712" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/LatText"
+            android:layout_alignParentBottom="true"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text="標註" />
+
+    </LinearLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="fill_parent"
+        android:layout_height="629dp" />
+            
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="fill_parent" android:id="@+id/tab3"
+            android:orientation="vertical" android:paddingTop="160px">
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="100px" android:text="This is tab 3"
+                android:id="@+id/txt3" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</TabHost>
+
+
+
+
+
+    

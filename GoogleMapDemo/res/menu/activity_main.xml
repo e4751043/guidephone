@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/connect"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="連接"/>
+    <item
+        android:id="@+id/disconnect"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="中斷"/>
+
+</menu>
