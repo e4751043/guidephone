@@ -331,7 +331,7 @@ public class MainActivity extends Activity implements LocationListener {
 						Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
 						String time = formatter.format(curDate);
 
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
 						String date = sdf.format(new java.util.Date());
 
 						FileWriter fwL = new FileWriter("/sdcard/DCIM/" + date
