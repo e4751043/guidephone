@@ -42,7 +42,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements LocationListener {
 	private static final String MAP_URL = "file:///android_asset/googlemap.htm";
 	private WebView webView;
-	private EditText LatText, LogText;
+	private EditText LatText, LogText, filename;
 	private Button submit;
 	private Button connect;
 	private Button disconnect;
@@ -122,6 +122,9 @@ public class MainActivity extends Activity implements LocationListener {
 					BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
 		}
+
+		// 輸入名稱
+		filename = (EditText) findViewById(R.id.filename);
 
 		// G
 		LatText = (EditText) findViewById(R.id.LatText);
@@ -326,34 +329,37 @@ public class MainActivity extends Activity implements LocationListener {
 						}
 					}
 					if (Left_length > 0 && Front_length > 0 && Right_length > 0) {
+						String content = filename.getText().toString();
 						SimpleDateFormat formatter = new SimpleDateFormat(
 								"yyyy-MM-dd-HH:mm:ss");
 						Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
 						String time = formatter.format(curDate);
 
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 						String date = sdf.format(new java.util.Date());
 
 						FileWriter fwL = new FileWriter("/sdcard/DCIM/" + date
-								+ "-L.txt", true);
+								+ "-" + content + "-L.txt", true);
 						BufferedWriter bwL = new BufferedWriter(fwL); // 將BufferedWeiter與FileWrite物件做連結
 						bwL.write(time + "---" + Left_lengthtoStr);
 						bwL.newLine();
 						bwL.close();
 
 						FileWriter fwF = new FileWriter("/sdcard/DCIM/" + date
-								+ "-F.txt", true);
+								+ "-" + content + "-F.txt", true);
 						BufferedWriter bwF = new BufferedWriter(fwF); // 將BufferedWeiter與FileWrite物件做連結
 						bwF.write(time + "---" + Front_lengthtoStr);
 						bwF.newLine();
 						bwF.close();
 
 						FileWriter fwR = new FileWriter("/sdcard/DCIM/" + date
-								+ "-R.txt", true);
+								+ "-" + content + "-R.txt", true);
 						BufferedWriter bwR = new BufferedWriter(fwR); // 將BufferedWeiter與FileWrite物件做連結
 						bwR.write(time + "---" + Right_lengthtoStr);
 						bwR.newLine();
 						bwR.close();
+
+						Thread.sleep(1000);
 					}
 					Arrays.fill(buffer, (byte) 0); // 清空buffer
 				}
